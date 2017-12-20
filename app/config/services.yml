@@ -14,18 +14,25 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
-    # makes classes in src/AppBundle available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
-    AppBundle\:
-        resource: '../../src/AppBundle/*'
+    BackendBundle\:
+        resource: '../../src/BackendBundle/*'
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
-        exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
+        exclude: '../../src/BackendBundle/{Entity,Repository,Tests}'
 
-    # controllers are imported separately to make sure they're public
-    # and have a tag that allows actions to type-hint services
-    AppBundle\Controller\:
-        resource: '../../src/AppBundle/Controller'
+    BackendBundle\Controller\:
+        resource: '../../src/BackendBundle/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    HomeBundle\:
+        resource: '../../src/HomeBundle/*'
+        # you can exclude directories or files
+        # but if a service is unused, it's removed anyway
+        exclude: '../../src/HomeBundle/{Entity,Repository,Tests}'
+
+    HomeBundle\Controller\:
+        resource: '../../src/HomeBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
 
